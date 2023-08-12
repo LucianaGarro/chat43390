@@ -22,7 +22,7 @@ Swal.fire({
     allowEscapeKey: false
 }) .then (result => {
     user = result.value;
-    socket.emit('Autenticado, user')
+    socket.emit('authenticated', user)
 });
 
 chatbox.addEventListener('keyup', evt =>{
@@ -54,6 +54,7 @@ socket.on( 'newUserConnected', data => {
         icon:'success'
     })
 })
+
 
 
 
