@@ -14,24 +14,23 @@ app.set ('view engine', 'handlebars');
 
 app.use('/', viewsRouter)
 
-const server= app.listen(8081, () => console.log('Server running'));
+const server = app.listen(8081, () => console.log('Server running'));
 const io = new Server (server);
 
 const messages = [];
 
 io.on ('connection', socket =>{
-    console.log ('Nuevo Usuario conectado');
+    console.log('Nuevo cliente conectado');
 
-    socket.on ('message', data => {
-        messages.push(data);
-        io.emit('messageLogs', messages)
 
-    })
-    socket.on ('authenticated', data =>{
-        socket.emit('messageLogs', messages);
-        socket.broadcast.emit('newUserConnected', data);
-    })
+socket.on('message', data => {
+    messages.push(data);
+    io.emit('messageLogs', messages)
+}) 
+socket.on ('authenticated', data =>{
+    socket.emit ('messageLogs', messages);
+    socket.broadcast.emit('newUserConnected', data);
+});
 })
-
 
 
